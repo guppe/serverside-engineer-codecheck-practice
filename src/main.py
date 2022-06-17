@@ -14,18 +14,22 @@ def main():
         for row in reader:
             key = row[1]
             if (key in csvdata) == False:
-                csvdata[key] = row[2]
+                csvdata[key] = int(row[2])
             elif (key in csvdata) == True:
-                csvdata[key] = int(csvdata[key]) + int(row[2])
+                csvdata[key] = csvdata[key] + int(row[2])
                 if (key in num) == False:
                     num[key] = 1
                 num[key] += 1                
-        #print(csvdata)
-        #print(num)
-        
         for i in num:
-            csvdata[i] = str(int(int(csvdata[i]) / int(num[i])))
-        print(csvdata)
+            csvdata[i] = int(csvdata[i] / int(num[i]))
+        csvdata2 = sorted(csvdata.items(), key=lambda x:x[1], reverse=True)
+        
+        print("rank,player_id,mean_score")
+        
+        data = csvdata2[:10]
+        n = len(data)
+        for i in range(0, n):
+           print(str(i + 1) + "," + data[i][0] + "," + str(data[i][1]))
 
           
     
